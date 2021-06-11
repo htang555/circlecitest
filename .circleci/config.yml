@@ -14,10 +14,11 @@ jobs:
             - run: echo "good"
       - run: echo "instaled"
 workflows:
-    version: 2
-    build-deploy:
+  my-workflow:
       jobs:
-      - build:
-        filters:
-          branches:
-              only: master
+        - build
+      when:
+        or:
+          - equal: [ main, << pipeline.git.branch >> ]
+          - equal: [ master, << pipeline.git.branch >> ]
+      
